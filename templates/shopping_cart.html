@@ -4,12 +4,14 @@
 {% block content %}
 <h1>Shopping Cart</h1>
 <div class='row'>
-    <!-- {% for playlist in playlists %}
-        <div class='col-md-3'>
-            <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
-            <small>{{ playlist.description }}</small>
-        </div>
-    {% endfor %} -->
+    {% for item in items %}
+        {% if item.in_shopping_cart == True %}
+            <div class='col-md-3'>
+                <h3><a href='/{{ item._id }}'>{{ item.title }}</a></h3>
+                <small>{{ item.price }}</small>
+            </div>
+        {% endif %}
+    {% endfor %}
     <a href='/shopping_cart/checkout' class='btn btn-default navbar-btn'>Proceed to Checkout</a>
 </div>
 {% endblock %}

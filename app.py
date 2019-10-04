@@ -33,9 +33,9 @@ def item_submit():
     item = {
         'title': request.form.get('title'),
         'price': request.form.get('price'),
-        'created_at': datetime.now()
+        'created_at': datetime.now(),
+        'in_shopping_cart': False
     }
-    print(item)
     item_id = items.insert_one(item).inserted_id
     return render_template('owner_view_item.html', item=item)
 
@@ -64,6 +64,18 @@ def item_show(item_id):
 
 @app.route('/shopping_cart')
 def shopping_cart():
+    """display user's shopping cart"""
+    return render_template('shopping_cart.html')
+
+@app.route('/shopping_cart/<item_id>/add_to_cart', methods=['POST'])
+def add_to_shopping_cart(item_id):
+    """display user's shopping cart"""
+    items.update_one({'_id':ObjectId(item_id)}, {"$set": {"in_shopping_cart" : True}}, upsert=False)
+    print(item_id)
+    return render_template('shopping_cart.html', cart=cart.find())
+
+@app.route('/shopping_cart')
+def delete_from_shopping_cart():
     """display user's shopping cart"""
     return render_template('shopping_cart.html')
 
