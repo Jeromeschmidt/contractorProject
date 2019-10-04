@@ -1,0 +1,15 @@
+<!-- templates/checkout.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Checkout</h1>
+<div class='row'>
+    <!-- {% for playlist in playlists %}
+        <div class='col-md-3'>
+            <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
+            <small>{{ playlist.description }}</small>
+        </div>
+    {% endfor %} -->
+    <a href='/shopping_cart/checkout/thanks' class='btn btn-default navbar-btn'>Checkout</a>
+</div>
+{% endblock %}
