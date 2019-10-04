@@ -4,14 +4,15 @@
 {% block content %}
 <h1>Owner</h1>
 <div class='row'>
-    <a href='/owner/add_item' class='btn btn-default navbar-btn'>ADD</a>
-    <a href='/owner/edit_item' class='btn btn-default navbar-btn'>EDIT</a>
-    <a href='/owner/delete_item' class='btn btn-default navbar-btn'>DELETE</a>
-    <!-- {% for playlist in playlists %}
+    <a href='/owner/add_item' class='btn btn-default navbar-btn'>ADD ITEM</a>
+</div>
+<br>
+<div class='row'>
+    {% for item in items %}
         <div class='col-md-3'>
-            <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
-            <small>{{ playlist.description }}</small>
+            <h3><a href='/owner/{{ item._id }}'>{{ item.title }}</a></h3>
+            <small>{{ item.price }}</small>
         </div>
-    {% endfor %} -->
+    {% endfor %}
 </div>
 {% endblock %}

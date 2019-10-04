@@ -19,7 +19,7 @@ def store_index():
 @app.route('/owner')
 def owner():
     """takes user to owner landing page"""
-    return render_template('owner.html')
+    return render_template('owner.html', items=items.find())
 
 @app.route('/owner/<item_id>')
 def owner_view_item(item_id):
@@ -37,7 +37,7 @@ def item_submit():
     }
     print(item)
     item_id = items.insert_one(item).inserted_id
-    return redirect(url_for('item_show', item_id=item_id))
+    return render_template('owner_view_item.html', item=item)
 
 @app.route('/owner/add_item')
 def item():
@@ -53,7 +53,7 @@ def edit_item():
 def item_delete(item_id):
     """Delete one item."""
     items.delete_one({'_id': ObjectId(item_id)})
-    return redirect(url_for('store_index'))
+    return redirect(url_for('owner'))
 
 #specific item
 @app.route('/<item_id>')
