@@ -10,7 +10,9 @@
             {% endif %}
             <h2>{{ item.price }}</h2>
             <hr>
-            <a action='/shopping_cart/{{ item._id }}/add_to_cart' class='btn btn-default navbar-btn'>ADD TO CART</a>
+            <p><form method='POST' action='/shopping_cart/{{ item._id }}/add_to_cart'>
+                <button type='submit'>ADD TO CART</button>
+            </form></p>
         </div>
     </center>
 </div>

@@ -44,10 +44,11 @@ def item():
     """Create a new item."""
     return render_template('item_new.html', item={}, title='New item')
 
-@app.route('/owner/edit_item')
-def edit_item():
+@app.route('/owner/<item_id>/edit')
+def edit_item(item_id):
     """edit an item."""
-    return render_template('edit_item.html', item={}, title='edit item')
+    item = items.find_one({'_id': ObjectId(item_id)})
+    return render_template('edit_item.html', item=item, title='edit item')
 
 @app.route('/owner/<item_id>', methods=['POST'])
 def item_delete(item_id):
@@ -65,19 +66,19 @@ def item_show(item_id):
 @app.route('/shopping_cart')
 def shopping_cart():
     """display user's shopping cart"""
-    return render_template('shopping_cart.html')
+    return render_template('shopping_cart.html', items=items.find())
 
 @app.route('/shopping_cart/<item_id>/add_to_cart', methods=['POST'])
 def add_to_shopping_cart(item_id):
     """display user's shopping cart"""
     items.update_one({'_id':ObjectId(item_id)}, {"$set": {"in_shopping_cart" : True}}, upsert=False)
-    print(item_id)
-    return render_template('shopping_cart.html', cart=cart.find())
+    return render_template('shopping_cart.html', items=items.find())
 
-@app.route('/shopping_cart')
-def delete_from_shopping_cart():
+@app.route('/shopping_cart/<item_id>/delete_from_cart', methods=['POST'])
+def delete_from_shopping_cart(item_id):
     """display user's shopping cart"""
-    return render_template('shopping_cart.html')
+    items.update_one({'_id':ObjectId(item_id)}, {"$set": {"in_shopping_cart" : False}}, upsert=False)
+    return render_template('shopping_cart.html', items=items.find())
 
 @app.route('/shopping_cart/checkout')
 def checkout():
