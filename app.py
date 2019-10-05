@@ -110,8 +110,11 @@ def checkout():
 
 @app.route('/shopping_cart/checkout/thanks')
 def thanks():
-    """display user's shopping cart"""
+    """display a thank you to user and send them a text message"""
+    #send text message to user
     message = twilioClient.messages.create(body="Thanks for your purchase!", from_='+18044915709', to='+14028407963')
+    #clear cart
+    items.update_many({}, {"$set": {"in_shopping_cart" : False}}, upsert=False)
     return render_template('thanks.html')
 
 if __name__ == '__main__':
