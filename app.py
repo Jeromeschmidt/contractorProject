@@ -3,10 +3,21 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 from datetime import datetime
+from twilio.rest import Client
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
 
 client = MongoClient()
 db = client.items
 items = db.items
+
+
+twilio_account_sid = os.getenv("account_sid")
+twilio_auth_token = os.getenv("auth_token")
+
+twilioClient = Client(twilio_account_sid, twilio_auth_token)
 
 app = Flask(__name__)
 
@@ -100,6 +111,7 @@ def checkout():
 @app.route('/shopping_cart/checkout/thanks')
 def thanks():
     """display user's shopping cart"""
+    message = twilioClient.messages.create(body="Thanks for your purchase!", from_='+18044915709', to='+14028407963')
     return render_template('thanks.html')
 
 if __name__ == '__main__':
