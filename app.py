@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from twilio.rest import Client
 import os
+import stripe
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -18,6 +19,8 @@ twilio_account_sid = os.getenv("account_sid")
 twilio_auth_token = os.getenv("auth_token")
 
 twilioClient = Client(twilio_account_sid, twilio_auth_token)
+
+stripe.api_key = os.getenv("stripe_key")
 
 app = Flask(__name__)
 
@@ -106,6 +109,19 @@ def delete_from_shopping_cart(item_id):
 @app.route('/shopping_cart/checkout')
 def checkout():
     """display user's shopping cart"""
+    session = stripe.checkout.Session.create(
+      payment_method_types=['card'],
+      line_items=[{
+        'name': 'T-shirt',
+        'description': 'Comfortable cotton t-shirt',
+        'images': ['https://example.com/t-shirt.png'],
+        'amount': 500,
+        'currency': 'usd',
+        'quantity': 1,
+      }],
+      success_url='http://127.0.0.1:5000/shopping_cart/checkout/thanks',
+      cancel_url='https://127.0.0.1:5000',
+    )
     return render_template('checkout.html')
 
 @app.route('/shopping_cart/checkout/thanks')
