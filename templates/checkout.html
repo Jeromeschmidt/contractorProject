@@ -16,10 +16,10 @@
             class="stripe-button"
             data-key="{{ key }}"
             data-description="A Flask Charge"
-            data-amount="500"
+            data-amount="{{ amount }}"
             data-locale="auto">
         </script>
     </form>
-    <a href='/shopping_cart/checkout/thanks' class='btn btn-default navbar-btn'>Checkout</a>
+    <!-- <a href='/shopping_cart/checkout/thanks' class='btn btn-default navbar-btn'>Checkout</a> -->
 </div>
 {% endblock %}

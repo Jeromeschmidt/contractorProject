@@ -2,7 +2,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Shopping Cart</h1>
+<h1>Shopping Cart {{ amount }}</h1>
+<h1>{{ amount }}</h1>
 <div class='row'>
     {% for item in items %}
         {% if item.in_shopping_cart %}

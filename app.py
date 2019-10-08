@@ -108,29 +108,41 @@ def delete_from_shopping_cart(item_id):
     items.update_one({'_id':ObjectId(item_id)}, {"$set": {"in_shopping_cart" : False}}, upsert=False)
     return render_template('shopping_cart.html', items=items.find())
 
+def amount_in_cart():
+    amount = 0
+    for item in items.find():
+        if item["in_shopping_cart"]:
+            amount = amount + int(item["price"])
+    amount = amount*100
+    return amount
+
 @app.route('/shopping_cart/checkout')
 def checkout():
     """display user's shopping cart"""
-    session = stripe.checkout.Session.create(
-      payment_method_types=['card'],
-      line_items=[{
-        'name': 'T-shirt',
-        'description': 'Comfortable cotton t-shirt',
-        'images': ['https://example.com/t-shirt.png'],
-        'amount': 500,
-        'currency': 'usd',
-        'quantity': 1,
-      }],
-      success_url='http://127.0.0.1:5000/shopping_cart/checkout/thanks',
-      cancel_url='https://127.0.0.1:5000',
-    )
-    return render_template('checkout.html', key=stripe_pub_key)
+    return render_template('checkout.html', key=stripe_pub_key, amount=amount_in_cart())
 
 @app.route('/shopping_cart/checkout/thanks', methods=['POST'])
 def thanks():
+    #processes stripe payment
+    try:
+        amount = amount_in_cart()
+
+        customer = stripe.Customer.create(
+        email='sample@customer.com',
+        source=request.form['stripeToken']
+        )
+
+        stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+        )
+    except stripe.error.StripeError:
+        return render_template('error.html')
     """display a thank you to user and send them a text message"""
     #send text message to user
-    message = twilioClient.messages.create(body="Thanks for your purchase!", from_='+18044915709', to='+14028407963')
+    message = twilioClient.messages.create(body="Another purchase!", from_='+18044915709', to='+14028407963')
     #clear cart
     items.update_many({}, {"$set": {"in_shopping_cart" : False}}, upsert=False)
     return render_template('thanks.html')
