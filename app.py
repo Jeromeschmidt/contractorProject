@@ -21,6 +21,8 @@ twilio_auth_token = os.getenv("auth_token")
 twilioClient = Client(twilio_account_sid, twilio_auth_token)
 
 stripe.api_key = os.getenv("stripe_key")
+stripe_pub_key = os.getenv("stripe_pub_key")
+
 
 app = Flask(__name__)
 
@@ -122,9 +124,9 @@ def checkout():
       success_url='http://127.0.0.1:5000/shopping_cart/checkout/thanks',
       cancel_url='https://127.0.0.1:5000',
     )
-    return render_template('checkout.html')
+    return render_template('checkout.html', key=stripe_pub_key)
 
-@app.route('/shopping_cart/checkout/thanks')
+@app.route('/shopping_cart/checkout/thanks', methods=['POST'])
 def thanks():
     """display a thank you to user and send them a text message"""
     #send text message to user
