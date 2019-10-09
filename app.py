@@ -10,6 +10,12 @@ import stripe
 from dotenv import load_dotenv
 load_dotenv()
 
+account_sid="ACaf356b30e339a6e9d0dba1f51aa4d989"
+auth_token="15525ad742998b2374879b0845e92096"
+stripe_key="sk_test_DZi8ff6x0iXlN8adpvgplAH300ZN5BBMCg"
+stripe_pub_key="pk_test_LVBYyfB8jBOSqyeiggCxrIfk00DdgpILtM"
+
+
 host = os.environ.get('MONGODB_URI')
 client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
