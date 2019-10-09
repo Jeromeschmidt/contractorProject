@@ -10,7 +10,8 @@ import stripe
 from dotenv import load_dotenv
 load_dotenv()
 
-client = MongoClient()
+host = os.environ.get('MONGODB_URI')
+client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.items
 items = db.items
 
