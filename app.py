@@ -111,7 +111,7 @@ def item_show(item_id):
 @app.route('/shopping_cart')
 def shopping_cart():
     """display user's shopping cart"""
-    return render_template('shopping_cart.html', items=items.find())
+    return render_template('shopping_cart.html', items=items.find(), amount=amount_in_cart())
 
 #adds an item to the shopping cart
 @app.route('/shopping_cart/<item_id>/add_to_cart', methods=['POST'])

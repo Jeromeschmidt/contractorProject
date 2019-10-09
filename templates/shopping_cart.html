@@ -19,7 +19,13 @@
         {% endif %}
     {% endfor %}
 </div>
-<div class='row'>
-    <a href='/shopping_cart/checkout' class='btn btn-default navbar-btn'>Proceed to Checkout</a>
+<br>
+<div class='container-fluid'>
+    <div align="left">
+        <a>Total: {{ amount }}</a>
+    </div>
+    <div align="right">
+        <a href='/shopping_cart/checkout' class='btn btn-default navbar-btn'>Proceed to Checkout</a>
+    </div>
 </div>
 {% endblock %}
