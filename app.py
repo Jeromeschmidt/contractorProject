@@ -25,10 +25,10 @@ items = db.items
 twilio_account_sid = os.getenv("account_sid")
 twilio_auth_token = os.getenv("auth_token")
 
-twilioClient = Client(twilio_account_sid, twilio_auth_token)
+twilioClient = Client(account_sid, auth_token)#twilio_account_sid, twilio_auth_token)
 
-stripe.api_key = os.getenv("stripe_key")
-stripe_pub_key = os.getenv("stripe_pub_key")
+stripe.api_key = stripe_key#os.getenv("stripe_key")
+stripe_pub_key = stripe_pub_key#os.getenv("stripe_pub_key")
 
 
 app = Flask(__name__)
