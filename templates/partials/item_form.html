@@ -12,4 +12,10 @@
         <input class='form-control' id='price' type='text' name='price' value='{{ item.price }}' />
     </div>
 
+    <div class='form-group'>
+    <label for='item-image'>Image</label><br/>
+    <p class='text-muted'>Add image in the form of 'https://example.com/itemID.jpeg'</p>
+    <textarea class='form-control' id='item-image' name='images' rows='5' />{{ "\n".join(item.images) }}</textarea>
+    </div>
+
 </fieldset>

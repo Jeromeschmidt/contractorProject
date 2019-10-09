@@ -3,13 +3,8 @@
 
 {% block content %}
 <h1>Checkout</h1>
+<br>
 <div class='row'>
-    <!-- {% for playlist in playlists %}
-        <div class='col-md-3'>
-            <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
-            <small>{{ playlist.description }}</small>
-        </div>
-    {% endfor %} -->
     <form action="/shopping_cart/checkout/thanks" method="post">
         <script
             src="https://checkout.stripe.com/checkout.js"
@@ -20,6 +15,5 @@
             data-locale="auto">
         </script>
     </form>
-    <!-- <a href='/shopping_cart/checkout/thanks' class='btn btn-default navbar-btn'>Checkout</a> -->
 </div>
 {% endblock %}

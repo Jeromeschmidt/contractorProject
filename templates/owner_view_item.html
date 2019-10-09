@@ -4,11 +4,13 @@
     <center>
         <link rel='stylesheet' href='https://bootswatch.com/4/lux/bootstrap.min.css'>
         <div>
-            <!-- #class='col-xl col-xl-offset-6 col-xl'> -->
+            {% for image in item.images %}
+                <img width=auto height="150" src="{{ image }}"></img>
+            {% endfor %}
             <h1>{{item.title}}</h1>
             {% if item.created_at %}
             {% endif %}
-            <h2>{{ item.price }}</h2>
+            <h2>${{ item.price }}</h2>
             <p>
                 <form method='POST' action='/owner/{{ item._id }}/edit'>
                     <button type='submit'>EDIT</button>

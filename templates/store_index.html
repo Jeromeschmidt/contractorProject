@@ -6,8 +6,11 @@
 <div class='row'>
     {% for item in items %}
         <div class='col-md-3'>
+            {% for image in item.images %}
+                <img width="150" height=auto src="{{ image }}"></img>
+            {% endfor %}
             <h3><a href='/{{ item._id }}'>{{ item.title }}</a></h3>
-            <small>{{ item.price }}</small>
+            <small>${{ item.price }}</small>
         </div>
     {% endfor %}
 </div>

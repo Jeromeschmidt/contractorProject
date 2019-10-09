@@ -3,13 +3,15 @@
 
 {% block content %}
 <h1>Shopping Cart {{ amount }}</h1>
-<h1>{{ amount }}</h1>
 <div class='row'>
     {% for item in items %}
         {% if item.in_shopping_cart %}
             <div class='col-md-3'>
+                {% for image in item.images %}
+                    <img width="150" height=auto src="{{ image }}"></img>
+                {% endfor %}
                 <h3><a href='/{{ item._id }}'>{{ item.title }}</a></h3>
-                <small>{{ item.price }}</small>
+                <small>${{ item.price }}</small>
                 <form method='POST' action='/shopping_cart/{{ item._id }}/delete_from_cart'>
                     <button type='submit'>REMOVE FROM CART</button>
                 </form>
