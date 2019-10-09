@@ -111,21 +111,21 @@ def item_show(item_id):
 @app.route('/shopping_cart')
 def shopping_cart():
     """display user's shopping cart"""
-    return render_template('shopping_cart.html', items=items.find(), amount=(amount_in_cart()/100))
+    return render_template('shopping_cart.html', items=items.find(), amount=int((amount_in_cart()/100)))
 
 #adds an item to the shopping cart
 @app.route('/shopping_cart/<item_id>/add_to_cart', methods=['POST'])
 def add_to_shopping_cart(item_id):
     """display user's shopping cart"""
     items.update_one({'_id':ObjectId(item_id)}, {"$set": {"in_shopping_cart" : True}}, upsert=False)
-    return render_template('shopping_cart.html', items=items.find())
+    return render_template('shopping_cart.html', items=items.find(), amount=int((amount_in_cart()/100)))
 
 #deletes an item from the shopping cart
 @app.route('/shopping_cart/<item_id>/delete_from_cart', methods=['POST'])
 def delete_from_shopping_cart(item_id):
     """display user's shopping cart"""
     items.update_one({'_id':ObjectId(item_id)}, {"$set": {"in_shopping_cart" : False}}, upsert=False)
-    return render_template('shopping_cart.html', items=items.find())
+    return render_template('shopping_cart.html', items=items.find(), amount=int((amount_in_cart()/100)))
 
 #finds the total amount due for items in shopping cart
 def amount_in_cart():
