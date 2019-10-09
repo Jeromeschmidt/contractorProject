@@ -12,7 +12,7 @@ load_dotenv()
 
 host = os.environ.get('MONGODB_URI')
 client = MongoClient(host=f'{host}?retryWrites=false')
-db = client.items
+db = client.get_default_database()
 items = db.items
 
 
