@@ -10,13 +10,8 @@ import stripe
 from dotenv import load_dotenv
 load_dotenv()
 
-account_sid="ACaf356b30e339a6e9d0dba1f51aa4d989"
-auth_token="15525ad742998b2374879b0845e92096"
-stripe_key="sk_test_DZi8ff6x0iXlN8adpvgplAH300ZN5BBMCg"
-stripe_pub_key="pk_test_LVBYyfB8jBOSqyeiggCxrIfk00DdgpILtM"
 
-
-host = os.environ.get('MONGODB_URI')
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/imagestore')
 client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 items = db.items
@@ -25,10 +20,10 @@ items = db.items
 twilio_account_sid = os.getenv("account_sid")
 twilio_auth_token = os.getenv("auth_token")
 
-twilioClient = Client(account_sid, auth_token)#twilio_account_sid, twilio_auth_token)
+twilioClient = Client(twilio_account_sid, twilio_auth_token)#twilio_account_sid, twilio_auth_token)
 
-stripe.api_key = stripe_key#os.getenv("stripe_key")
-stripe_pub_key = stripe_pub_key#os.getenv("stripe_pub_key")
+stripe.api_key = os.getenv("stripe_key")
+stripe_pub_key = os.getenv("stripe_pub_key")
 
 
 app = Flask(__name__)
