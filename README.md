@@ -7,3 +7,5 @@
 * After payment is accepted, user is taken to a thank you page and owner is sent a text message using the Twilio API
 * Shopping cart is then emptied
 * Route tests are included for 100% of routes
+
+Site is viewable at: https://contractorshoestore.herokuapp.com
