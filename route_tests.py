@@ -88,5 +88,5 @@ class AppTests(unittest.TestCase):
         result = self.app.get('/shopping_cart/checkout/thanks')
 
         # assert the status code of the response
-        #405 because card payment was not entered
+        #405 because card payment was not completed
         self.assertEqual(result.status_code, 405)
