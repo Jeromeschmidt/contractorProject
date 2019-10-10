@@ -124,6 +124,7 @@ def delete_from_shopping_cart(item_id):
 
 #finds the total amount due for items in shopping cart
 def amount_in_cart():
+    """Displays the value of the items in the cart in pennies"""
     amount = 0
     for item in items.find():
         if item["in_shopping_cart"]:
@@ -140,6 +141,7 @@ def checkout():
 #takes the user to a thank you page, and sends a  text message to owner
 @app.route('/shopping_cart/checkout/thanks', methods=['POST'])
 def thanks():
+    """send user to a thank you page while stripe payment is processed and twilio message is sent"""
     #processes stripe payment
     try:
         amount = amount_in_cart()
