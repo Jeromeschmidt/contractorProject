@@ -1,6 +1,6 @@
-#Contractor Shoe Store#
+#Contractor Shoe Store
 
-###Features:###
+###Features:
 * Only allows owner to add, edit, and delete items
 * Lets normal users add items they want to buy to a shopping cart
 * Once a user is ready to checkout, the Stripe checkout API is used to collect payment information and process payment
